@@ -19,6 +19,13 @@ const $form = $('form')
 
 $form.on('submit', getData)
 
+// on keypress enter run getData
+$form.on('keypress', function(event){
+    if(event.which === 13){
+        getData()
+    }
+})
+
 // get Data prevents window from refreshing, then stores the input in a variable and passes that into the .ajax key.  
 // we then establish weatherData as the data we just grabbed from the API
 // we then run the render function
