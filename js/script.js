@@ -7,7 +7,7 @@ let tempF;
 let feelsLikeF;
 
 // grab elements
-
+const $cityLc = $('#city:last-child')
 const $city = $('#city');
 const $temp = $('#temp');
 const $feelsLike = $('#feels-like');
@@ -24,17 +24,21 @@ $form.on('submit', getData)
 // we then run the render function
 
 function getData(event) {
-
+    
     event.preventDefault();
+
     const cityInput = $input.val()
+    $input.val('')
 
     $.ajax(`${BASE_URL}?q=${cityInput}&appid=${API_KEY}`).then(function (data) {
         weatherData = data;
+
         console.log(weatherData)
         tempF = Math.ceil((weatherData.main.temp - 273.15) * 1.8 + 32)
         feelsLikeF = Math.ceil((weatherData.main.feels_like - 273.15) * 1.8 + 32)
         console.log(tempF)
         console.log(feelsLikeF)
+        
 
         render();
     })
@@ -42,10 +46,9 @@ function getData(event) {
 
 // render creates new html that is seen in the dom
 
-const render = function () {
-
-    $city.append(`${weatherData.name}`)
-    // $temp.text(`${tempF}°`)
-    // $feelsLike.text(`${feelsLikeF}°`)
-    // $weather.text(weatherData.weather[0].description)
+const render = function () { 
+    $city.text(`  ${weatherData.name}`)
+    $temp.text(`  ${tempF}°`)
+    $feelsLike.text(`  ${feelsLikeF}°`)
+    $weather.text(`  ${weatherData.weather[0].description}`)
 }
